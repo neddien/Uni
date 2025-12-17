@@ -1,4 +1,4 @@
-% Created 2025-05-19 Mon 21:07
+% Created 2025-12-16 Tue 17:29
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -26,7 +26,7 @@
  pdftitle={Matematical Analysis},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 30.1 (Org mode 9.7.26)}, 
+ pdfcreator={Emacs 30.2 (Org mode 9.7.34)}, 
  pdflang={English}}
 \begin{document}
 
@@ -35,7 +35,7 @@
 
 \newpage
 \section{Analysis of the Function}
-\label{sec:orgbe1a21b}
+\label{sec:orgb4ece6e}
 Given the function:
 \[
 f(x)=\frac{x^2+3x-1}{3-2x}
@@ -53,7 +53,7 @@ Analyze it and graph the function by following the steps below:
 \item Function graph
 \end{enumerate}
 \section{Finding the Domain of the Function}
-\label{sec:org42ba994}
+\label{sec:org502409e}
 We'll first need to find the domain of the function as this step is essential when observing the function at bounderies which it is undefined.
 Because our function is rational, the domain of the function would be the following:
 \[
@@ -67,7 +67,7 @@ Therefore the domain of \(f(x)\) is:
 
 \newpage
 \section{Limits at the Boundaries of the Domain}
-\label{sec:org24a052b}
+\label{sec:org558c19b}
 We examine the behaviour near the point where the function is undefined (\(x=\frac{3}{2}\)) from both sides.
 
 As \(x \to \frac{3}{2}^+\):
@@ -88,7 +88,7 @@ As \(x \to \frac{3}{2}^-\):
 \lim_{x\to\frac{3}{2}^-} \frac{x^2+3x-1}{3-2x} = = -\infty
 \]
 \section{Interceptions with Coordinate Axies}
-\label{sec:org829a305}
+\label{sec:org14f85c2}
 We find where the function intercepts at \(x\) and \(y\) axies by plugging zero for each axies.
 
 X Interception:
@@ -108,7 +108,7 @@ Y Interception:
 
 \newpage
 \section{Critical Points and Monotonic Intervals}
-\label{sec:orgec6c75b}
+\label{sec:org85bc235}
 Critical points occur in a function where the derivative is zero. To find the critical points we first differentiate the function and then solve for zero.
 
 Differentiate:
@@ -129,10 +129,10 @@ x_1 = \frac{3 + \sqrt{23}}{2}
 x_2 = \frac{3 - \sqrt{23}}{2}
 \]
 \section{Local Extrema and values at Extrema}
-\label{sec:org1db5aa4}
+\label{sec:org6c11e06}
 To find the monotonic intervals we first compute the derivate then find the signs on the interval.
 \subsection{Monotonic Intervals}
-\label{sec:orga0d03a5}
+\label{sec:orgc5ff91f}
 Monotonicity:
 \[
 f'(x) > 0 \ \ increasing 
@@ -164,7 +164,7 @@ Increasing: \left( \frac{3-\sqrt{23}}{2} ; \frac{3+\sqrt{23}}{2} \right)
 Decreasing: \left( -\infty ; \frac{3 - \sqrt{23}}{2} \right) \cup \left( \frac{3 + \sqrt{23}}{2} ; \infty \right)
 \]
 \subsection{Local Extrema}
-\label{sec:orgfb92f13}
+\label{sec:orgf1e05b2}
 To find the local extrema of the function we take the interval from before and determine whether the function at the critical point is a minimum or a maximum.
 \begin{center}
 \includegraphics[width=0.6\textwidth]{./skarmbild.png}
@@ -180,7 +180,7 @@ x_{min} = \frac{3-\sqrt{23}}{2}
 x_{max} = \frac{3+\sqrt{23}}{2}
 \]
 \subsection{Evaluation of Function Values at Local Extrema}
-\label{sec:orga420e65}
+\label{sec:org1de0ce0}
 We simply plug in the extrema values into the function to get their values:
 \[
 f(\frac{3-\sqrt{23}}{2}) = \frac{1}{2} \left( \sqrt{23} - 6 \right)
@@ -189,7 +189,7 @@ f(\frac{3-\sqrt{23}}{2}) = \frac{1}{2} \left( \sqrt{23} - 6 \right)
 f(\frac{3+\sqrt{23}}{2}) = -3-\frac{\sqrt{23}}{2}
 \]
 \section{Inflection Points and Concavity}
-\label{sec:org27e0c99}
+\label{sec:orgf1372b0}
 To find the Inflection Points and Concavity, we'll first need to find the second derivative of the function:
 \[
 f'(x) = \frac{-2x^2+6x+7}{(3-2x)^2}
@@ -228,9 +228,9 @@ To find the Inflection Points we zero the second derivative and solve:
 
 But as we can see this equation has no Real solution therefore another possible candidate is \(\frac{3}{2}\) but our function here is undefined therefore \textbf{our function has no Inflection Points.}
 \section{Identification of Asymptotes using Limits}
-\label{sec:org3d09627}
+\label{sec:org7cb7495}
 \subsection{Vertical Asympotote}
-\label{sec:org1c17a04}
+\label{sec:org742d3fa}
 Vertical asymptotes occur near unbounded \(x\) values for \(f(x)\), to find whether or not an unbounded \(x\) for the function is an asymptote, we simply take the limit from both sides of \(x\).
 
 \(x\) from right:
@@ -243,7 +243,7 @@ Vertical asymptotes occur near unbounded \(x\) values for \(f(x)\), to find whet
 \lim_{x\to\frac{3}{2}^-} \frac{x^2+3x-1}{3-2x} = -\infty
 \]
 \subsection{Slant Asymptote and Horizontal Asymptote}
-\label{sec:orgf4ceaf2}
+\label{sec:org4edb6ce}
 Slant Asymptotes occur when finding \(k\), \(b\) and plugging them in the linear equation below:
 \[
 y=kx+b
@@ -272,7 +272,7 @@ y=kx+b \rightarrow y=\frac{x}{-2}-\frac{9}{4}
 
 As we can see, neither \(k\) or \(b\) are zero therefore we have a Slant Asymptote.
 \section{Function graph}
-\label{sec:org5b0ca8e}
+\label{sec:orge6e9b7a}
 \begin{center}
 \includegraphics[width=.9\linewidth]{./holy_balony.png}
 \end{center}

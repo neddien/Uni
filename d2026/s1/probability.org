@@ -1,0 +1,260 @@
+#+AUTHOR: Serob Tigranyan
+#+TITLE: Statistics and Combinatorics
+#+LATEX_HEADER: \usepackage{mathptmx}  % Times font
+#+LATEX_HEADER: \usepackage{helvet}   % Helvetica font
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault} % Sans-serif as default
+#+LATEX_HEADER: \usepackage{titlesec}
+#+LATEX_HEADER: \usepackage{lmodern}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \pgfplotsset{compat=1.18}
+
+\newpage
+
+* Four-Digit Numbers with Different Digits
+How many four digits numbers exist where the digits are different?
+
+** Setting up the Problem
+We need to count four-digit numbers where all digits are distinct. A four-digit number has the form $\overline{d_1d_2d_3d_4}$ where $d_1 \neq 0$ (since it's the first digit) and all digits are different.
+
+** Counting by Position
+We count the number of choices for each position:
+
+*First digit* ($d_1$): We can choose any digit from 1 to 9 (we exclude 0):
+\[
+9 \text{ choices}
+\]
+
+*Second digit* ($d_2$): We can choose any digit from 0 to 9 except the one already used for $d_1$:
+\[
+9 \text{ choices}
+\]
+
+*Third digit* ($d_3$): We can choose any digit except the two already used:
+\[
+8 \text{ choices}
+\]
+
+*Fourth digit* ($d_4$): We can choose any digit except the three already used:
+\[
+7 \text{ choices}
+\]
+
+** Final Answer
+By the multiplication principle:
+\[
+\boxed{9 \times 9 \times 8 \times 7 = 4536}
+\]
+
+\newpage
+
+* Probability with Two Dice
+Two dices are thrown, find the probability for the event to happen where the number on the dices add up to an even number and one of the dices landed as 6.
+
+** Sample Space
+When two dice are thrown, the total number of possible outcomes is:
+\[
+\left| \Omega \right| = 6 \times 6 = 36
+\]
+
+** Defining the Event
+Let $A$ be the event where:
+- The sum of the two dice is even, AND
+- At least one die shows a 6
+
+** Finding Favorable Outcomes
+For the sum to be even, both dice must show the same parity (both even or both odd).
+
+Since one die must show 6 (which is even), the other die must also be even for the sum to be even.
+
+*Case 1*: First die is 6, second die is even (2, 4, 6):
+\[
+(6,2), (6,4), (6,6) \rightarrow 3 \text{ outcomes}
+\]
+
+*Case 2*: Second die is 6, first die is even (2, 4):
+\[
+(2,6), (4,6) \rightarrow 2 \text{ outcomes}
+\]
+
+Note: $(6,6)$ is already counted in Case 1, so we don't double count.
+
+Total favorable outcomes:
+\[
+\left|A \right| = 3 + 2 = 5
+\]
+
+** Computing the Probability
+\[
+P(A) = \frac{|A|}{|\Omega|} = \boxed{\frac{5}{36}}
+\]
+
+\newpage
+
+* Conditional Probability with Containers
+There exists 2 white and 6 black balls in the first container, 4 white and 2 black in the second container. We take two random balls from the first container and throw them to the second container, from which we take a single ball out of the second container.
+
+** Initial Setup
+*Container 1*: 2 white (W), 6 black (B) → Total: 8 balls  \\
+*Container 2*: 4 white (W), 2 black (B) → Total: 6 balls
+
+** Part (a): Probability the ball taken out is black
+We use the law of total probability.
+Let $B_2$ be the event that the ball taken from container 2 is black.
+There are three possible scenarios for the two balls transferred from container 1:
+
+*Scenario 1*: Two white balls transferred
+\[
+P(2W) = \frac{C_2^2 \cdot C_6^0}{C_8^2} = \frac{1}{28}
+\]
+
+After transfer, container 2 has: 6W, 2B (total 8)
+\[
+P(B_2 | 2W) = \frac{2}{8} = \frac{1}{4}
+\]
+
+*Scenario 2*: One white, one black transferred
+\[
+P(1W1B) = \frac{C_2^1 \cdot C_6^1}{C_8^2} = \frac{12}{28} = \frac{3}{7}
+\]
+
+After transfer, container 2 has: 5W, 3B (total 8)
+\[
+P(B_2 | 1W1B) = \frac{3}{8}
+\]
+
+*Scenario 3*: Two black balls transferred
+\[
+P(2B) = \frac{C_2^0 \cdot C_6^2}{C_8^2} = \frac{15}{28}
+\]
+
+After transfer, container 2 has: 4W, 4B (total 8)
+\[
+P(B_2 | 2B) = \frac{4}{8} = \frac{1}{2}
+\]
+
+\newpage
+Using the law of total probability:
+\[
+P(B_2) = P(2W) \cdot P(B_2|2W) + P(1W1B) \cdot P(B_2|1W1B) + P(2B) \cdot P(B_2|2B)
+\]
+\[
+= \frac{1}{28} \cdot \frac{1}{4} + \frac{3}{7} \cdot \frac{3}{8} + \frac{15}{28} \cdot \frac{1}{2}
+\]
+\[
+= \frac{1}{112} + \frac{9}{56} + \frac{15}{56}
+\]
+\[
+= \frac{1}{112} + \frac{24}{56} = \frac{1}{112} + \frac{48}{112} = \frac{49}{112} = \boxed{\frac{7}{16}}
+\]
+
+** Part (b): Conditional probability both balls were white given ball is white
+We need to find $P(2W | W_2)$ where $W_2$ is the event that a white ball is drawn from container 2.
+
+Using Bayes' theorem:
+\[
+P(2W | W_2) = \frac{P(W_2 | 2W) \cdot P(2W)}{P(W_2)}
+\]
+
+First, we find $P(W_2) = 1 - P(B_2) = 1 - \frac{7}{16} = \frac{9}{16}$
+
+We already know:
+\[
+P(W_2 | 2W) = \frac{6}{8} = \frac{3}{4}, \quad P(2W) = \frac{1}{28}
+\]
+
+Therefore:
+\[
+P(2W | W_2) = \frac{\frac{3}{4} \cdot \frac{1}{28}}{\frac{9}{16}} = \frac{\frac{3}{112}}{\frac{9}{16}} = \frac{3}{112} \cdot \frac{16}{9} = \frac{48}{1008} = \boxed{\frac{4}{84} = \frac{1}{21}}
+\]
+
+\newpage
+
+* Binomial Probability - Family of Five Kids
+The family is made out of 5 kids. We assume each child is equally likely to be a boy or girl with probability $p = \frac{1}{2}$.
+
+** Part (a): Probability exactly two kids are boys
+This follows a binomial distribution with $n=5$, $k=2$, and $p=\frac{1}{2}$:
+\[
+P(X=2) = C_5^2 \cdot \left(\frac{1}{2}\right)^2 \cdot \left(\frac{1}{2}\right)^3
+\]
+\[
+= \frac{5!}{2!3!} \cdot \frac{1}{32} = 10 \cdot \frac{1}{32} = \boxed{\frac{10}{32} = \frac{5}{16}}
+\]
+
+** Part (b): Probability boys make up no more than 2
+This means 0, 1, or 2 boys (equivalently, at least 3 girls):
+\[
+P(X \leq 2) = P(X=0) + P(X=1) + P(X=2)
+\]
+
+*Zero boys*:
+\[
+P(X=0) = C_5^0 \cdot \left(\frac{1}{2}\right)^5 = 1 \cdot \frac{1}{32} = \frac{1}{32}
+\]
+
+*One boy*:
+\[
+P(X=1) = C_5^1 \cdot \left(\frac{1}{2}\right)^5 = 5 \cdot \frac{1}{32} = \frac{5}{32}
+\]
+
+*Two boys*:
+\[
+P(X=2) = \frac{10}{32}
+\]
+
+Therefore:
+\[
+P(X \leq 2) = \frac{1}{32} + \frac{5}{32} + \frac{10}{32} = \boxed{\frac{16}{32} = \frac{1}{2}}
+\]
+
+\newpage
+
+* Distribution Law for Identical Marbles
+In a batch of 10 marbles, there are 8 identical marbles and 2 different marbles. We randomly take 2 marbles, formulate the distribution law for the number of identical marbles among the selected marbles.
+
+** Defining the Random Variable
+Let $X$ be the number of identical marbles (from the group of 8) among the 2 selected marbles.
+
+Possible values: $X \in \{0, 1, 2\}$
+
+** Sample Space
+Total ways to select 2 marbles from 10:
+\[
+C_{10}^2 = \frac{10!}{2!8!} = 45
+\]
+
+** Computing Probabilities
+*$P(X=0)$*: Both marbles are from the 2 different ones:
+\[
+P(X=0) = \frac{C_2^2 \cdot C_8^0}{C_{10}^2} = \frac{1}{45}
+\]
+
+*$P(X=1)$*: One marble from the 8 identical, one from the 2 different:
+\[
+P(X=1) = \frac{C_8^1 \cdot C_2^1}{C_{10}^2} = \frac{8 \cdot 2}{45} = \frac{16}{45}
+\]
+
+*$P(X=2)$*: Both marbles from the 8 identical ones:
+\[
+P(X=2) = \frac{C_8^2 \cdot C_2^0}{C_{10}^2} = \frac{28}{45}
+\]
+
+** Distribution Law
+The probability distribution of $X$ is:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$X$ & 0 & 1 & 2 \\
+\hline
+$P(X)$ & $\frac{1}{45}$ & $\frac{16}{45}$ & $\frac{28}{45}$ \\
+\hline
+\end{tabular}
+\end{center}
+
+** Verification
+We verify that the probabilities sum to 1:
+\[
+P(X=0) + P(X=1) + P(X=2) = \frac{1}{45} + \frac{16}{45} + \frac{28}{45} = \frac{45}{45} = 1 \quad \checkmark
+\]

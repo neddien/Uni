@@ -1,0 +1,310 @@
+% Created 2025-12-18 Thu 19:05
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{mathptmx}  % Times font
+\usepackage{helvet}   % Helvetica font
+\renewcommand{\familydefault}{\sfdefault} % Sans-serif as default
+\usepackage{titlesec}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{karnaugh-map}
+\pgfplotsset{compat=1.18}
+\author{Serob Tigranyan}
+\date{\today}
+\title{Mathematical Logic}
+\hypersetup{
+ pdfauthor={Serob Tigranyan},
+ pdftitle={Mathematical Logic},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Proving Tautology using Identical Transformations}
+\label{sec:orga8b28cc}
+Using identical transformations prove that the following formula is a tautology:
+\[
+P \to (Q \to ((P \lor Q) \to (P \land Q)))
+\]
+\subsection{Understanding Tautology}
+\label{sec:org4f24f18}
+A formula is a tautology if it evaluates to true for all possible truth value assignments. We'll use logical equivalences to transform the formula.
+\subsection{Applying Transformations}
+\label{sec:org93d7b9f}
+We begin with the implication equivalence: \(A \to B \equiv \neg A \lor B\)
+
+Starting with the formula:
+\[
+P \to (Q \to ((P \lor Q) \to (P \land Q)))
+\]
+
+Apply implication elimination to the outermost implication:
+\[
+\equiv \neg P \lor (Q \to ((P \lor Q) \to (P \land Q)))
+\]
+
+Apply implication elimination to the next implication:
+\[
+\equiv \neg P \lor (\neg Q \lor ((P \lor Q) \to (P \land Q)))
+\]
+
+Apply implication elimination to the innermost implication:
+\[
+\equiv \neg P \lor (\neg Q \lor (\neg(P \lor Q) \lor (P \land Q)))
+\]
+
+By De Morgan's law: \(\neg(P \lor Q) \equiv \neg P \land \neg Q\)
+\[
+\equiv \neg P \lor (\neg Q \lor ((\neg P \land \neg Q) \lor (P \land Q)))
+\]
+
+\newpage
+Applying associativity of disjunction:
+\[
+\equiv \neg P \lor \neg Q \lor (\neg P \land \neg Q) \lor (P \land Q)
+\]
+
+By absorption law: \(A \lor (A \land B) \equiv A\), we observe that \(\neg P \lor (\neg P \land \neg Q) \equiv \neg P\):
+\[
+\equiv \neg P \lor \neg Q \lor (P \land Q)
+\]
+
+Now we can factor this expression. Notice that:
+\[
+\neg P \lor \neg Q \lor (P \land Q) \equiv (\neg P \lor \neg Q) \lor (P \land Q)
+\]
+
+By De Morgan's law in reverse: \(\neg P \lor \neg Q \equiv \neg(P \land Q)\)
+\[
+\equiv \neg(P \land Q) \lor (P \land Q)
+\]
+
+This is the law of excluded middle: \(\neg A \lor A \equiv \top\) (always true)
+\[
+\equiv \top
+\]
+
+Therefore, the formula is a \textbf{\textbf{tautology}}.
+\[
+\boxed{P \to (Q \to ((P \lor Q) \to (P \land Q))) \equiv \top}
+\]
+
+\newpage
+\section{Finding the ANF (Zhegalkin Polynomial)}
+\label{sec:orge98c39c}
+Find the ANF (Zhegalkin polynomial) of the following Boolean function and determine whether it can be expressed as a linear Zhegalkin polynomial:
+\[
+f(x,y,z) = xyz \lor xy'z \lor x'yz' \lor x'y'z'
+\]
+\subsection{Constructing the Truth Table}
+\label{sec:orgca50b09}
+First, we construct the truth table for the given function:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x$ & $y$ & $z$ & $f(x,y,z)$ \\
+\hline
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 \\
+0 & 1 & 0 & 1 \\
+0 & 1 & 1 & 0 \\
+1 & 0 & 0 & 0 \\
+1 & 0 & 1 & 1 \\
+1 & 1 & 0 & 0 \\
+1 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Computing the ANF using Pascal's Triangle Method}
+\label{sec:org0e9821b}
+To find the ANF, we use the XOR-based method. We create an auxiliary table where each row is computed by XORing adjacent values:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+Row & 000 & 001 & 010 & 011 & 100 & 101 & 110 & 111 \\
+\hline
+0 & 1 & 0 & 1 & 0 & 0 & 1 & 0 & 1 \\
+1 & 1 & 1 & 1 & 0 & 1 & 1 & 1 & \\
+2 & 0 & 0 & 1 & 1 & 0 & 0 & & \\
+3 & 0 & 1 & 0 & 1 & & & & \\
+4 & 1 & 1 & 1 & & & & & \\
+5 & 0 & 0 & & & & & & \\
+6 & 0 & & & & & & & \\
+\hline
+\end{tabular}
+\end{center}
+
+\newpage
+\subsection{Reading the ANF Coefficients}
+\label{sec:org07f2884}
+The ANF coefficients correspond to the first column of each row. Reading from top to bottom, we get the coefficients for terms: \(1, x, y, xy, z, xz, yz, xyz\)
+
+From our table: coefficients are \(1, 1, 0, 0, 1, 0, 0, 0\)
+
+Therefore, the ANF is:
+\[
+\boxed{f(x,y,z) = 1 \oplus x \oplus z}
+\]
+\subsection{Determining Linearity}
+\label{sec:orgd9247eb}
+A Zhegalkin polynomial is linear if it contains only terms of degree 0 (constant) and degree 1 (single variables), with no products of variables.
+
+Our ANF contains only the constant term \(1\) and the linear terms \(x\) and \(z\). Therefore:
+\[
+\boxed{\text{The function IS a linear Zhegalkin polynomial}}
+\]
+
+\newpage
+\section{Constructing Truth Table of Boolean Function}
+\label{sec:orga2a9fd6}
+Construct the truth table of the following boolean function:
+\[
+f(x, y, z) = x' \to (x \leftrightarrow (y \oplus (xz)))
+\]
+\subsection{Understanding the Operators}
+\label{sec:org4c0591a}
+\begin{itemize}
+\item \(\oplus\) is XOR (exclusive or): \(A \oplus B\) is true when exactly one of \(A\) or \(B\) is true
+\item \(\leftrightarrow\) is biconditional (XNOR): \(A \leftrightarrow B\) is true when \(A\) and \(B\) have the same truth value
+\item \(\to\) is implication: \(A \to B\) is false only when \(A\) is true and \(B\) is false
+\end{itemize}
+\subsection{Building the Truth Table}
+\label{sec:orge94658f}
+We evaluate the function step by step for each combination:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+$x$ & $y$ & $z$ & $x'$ & $xz$ & $y \oplus (xz)$ & $x \leftrightarrow (y \oplus (xz))$ & $f(x,y,z)$ \\
+\hline
+0 & 0 & 0 & 1 & 0 & 0 & 1 & 1 \\
+0 & 0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+0 & 1 & 0 & 1 & 0 & 1 & 0 & 0 \\
+0 & 1 & 1 & 1 & 0 & 1 & 0 & 0 \\
+1 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+1 & 0 & 1 & 0 & 1 & 1 & 1 & 1 \\
+1 & 1 & 0 & 0 & 0 & 1 & 1 & 1 \\
+1 & 1 & 1 & 0 & 1 & 0 & 0 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+\subsection{Analysis}
+\label{sec:orgc147255}
+The function evaluates to 0 when \(x=0\) and \(y=1\) (rows 3 and 4), and evaluates to 1 otherwise. Therefore:
+\[
+\boxed{f(x, y, z) \not\equiv 1 \text{ (not a tautology)}}
+\]
+
+The function can be expressed in DNF (Disjunctive Normal Form) by taking the minterms where \(f=1\):
+\[
+f(x,y,z) = \bar{x}\bar{y}\bar{z} \lor \bar{x}\bar{y}z \lor x\bar{y}\bar{z} \lor x\bar{y}z \lor xy\bar{z} \lor xyz
+\]
+
+\newpage
+\section{Using K-maps to Simplify Boolean Expression}
+\label{sec:orgc6c74e6}
+Using K-maps simplify the following boolean expression:
+\[
+f(w, x, y, z)= \bar{w}xy\bar{z}+w\bar{x}yz +wx\bar{y}\bar{z}+\bar{w}xy\bar{z}+\bar{w}\bar{x}y\bar{z}+\bar{w}x\bar{y}z+w\bar{x}\bar{y}\bar{z}+\bar{w}xyz+w\bar{x}yz+wx\bar{y}z+\bar{w}xy\bar{z}+\bar{w}x\bar{y}\bar{z}
+\]
+\subsection{Identifying the Minterms}
+\label{sec:org69322df}
+First, we identify which minterms are present (removing duplicates):
+\begin{itemize}
+\item \(\bar{w}xy\bar{z}\) → 0110 → minterm 6
+\item \(w\bar{x}yz\) → 1011 → minterm 11
+\item \(wx\bar{y}\bar{z}\) → 1100 → minterm 12
+\item \(\bar{w}\bar{x}y\bar{z}\) → 0010 → minterm 2
+\item \(\bar{w}x\bar{y}z\) → 0101 → minterm 5
+\item \(w\bar{x}\bar{y}\bar{z}\) → 1000 → minterm 8
+\item \(\bar{w}xyz\) → 0111 → minterm 7
+\item \(wx\bar{y}z\) → 1101 → minterm 13
+\item \(\bar{w}x\bar{y}\bar{z}\) → 0100 → minterm 4
+\end{itemize}
+
+Minterms: 2, 4, 5, 6, 7, 8, 11, 12, 13
+\subsection{Constructing the K-map}
+\label{sec:orgec6fd93}
+We fill in a 4-variable Karnaugh map:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$wx \backslash yz$ & 00 & 01 & 11 & 10 \\
+\hline
+00 & 0 & 0 & 0 & 1 \\
+01 & 1 & 1 & 1 & 1 \\
+11 & 1 & 1 & 0 & 0 \\
+10 & 1 & 0 & 1 & 0 \\
+\hline
+\end{tabular}
+\end{center}
+
+Where rows represent \(wx\): 00, 01, 11, 10 and columns represent \(yz\): 00, 01, 11, 10.
+
+\newpage
+\subsection{Grouping the Ones}
+\label{sec:orga1c193a}
+We identify the prime implicants by grouping adjacent 1s in the K-map. The goal is to form the largest possible groups (powers of 2) to minimize the final expression.
+
+\textbf{Group 1} (size 4): Covers minterms 4, 5, 6, 7
+\begin{itemize}
+\item Row 01, all columns
+\item Variables that remain constant: \(w=0, x=1\)
+\item Prime implicant: \(\bar{w}x\)
+\end{itemize}
+
+\textbf{Group 2} (size 2): Covers minterms 12, 13
+\begin{itemize}
+\item Row 11, columns 00 and 01
+\item Variables that remain constant: \(w=1, x=1, y=0\)
+\item Prime implicant: \(wx\bar{y}\)
+\end{itemize}
+
+\textbf{Group 3} (size 2): Covers minterms 2, 6
+\begin{itemize}
+\item Column 10, rows 00 and 01
+\item Variables that remain constant: \(w=0, y=1, z=0\)
+\item Prime implicant: \(\bar{w}y\bar{z}\)
+\end{itemize}
+
+\textbf{Group 4} (size 2): Covers minterms 8, 12
+\begin{itemize}
+\item Column 00, rows 10 and 11
+\item Variables that remain constant: \(w=1, y=0, z=0\)
+\item Prime implicant: \(w\bar{y}\bar{z}\)
+\end{itemize}
+
+\textbf{Group 5} (size 1): Covers minterm 11
+\begin{itemize}
+\item This minterm cannot be grouped with others
+\item Prime implicant: \(w\bar{x}yz\)
+\end{itemize}
+\subsection{Simplified Expression}
+\label{sec:org7617c25}
+Combining all prime implicants that are necessary to cover all minterms:
+\[
+\boxed{f(w,x,y,z) = \bar{w}x + wx\bar{y} + \bar{w}y\bar{z} + w\bar{y}\bar{z} + w\bar{x}yz}
+\]
+
+Note: \(\bar{w}y\bar{z}\) is essential for minterm 2, \(w\bar{y}\bar{z}\) is essential for minterm 8, and \(w\bar{x}yz\) is essential for minterm 11.
+\end{document}

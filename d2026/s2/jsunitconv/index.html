@@ -1,0 +1,32 @@
+<head>
+  <title>Unit Converter</title>
+</head>
+<body>
+  <h1>Unit Converter</h1>
+
+  <label>Category:
+    <select id="category" onchange="updateUnits()">
+      <option value="length">Length</option>
+      <option value="mass">Mass</option>
+      <option value="time">Time</option>
+      <option value="temperature">Temperature</option>
+    </select>
+  </label>
+
+  <br><br>
+
+  <label>Value: <input type="number" id="value" oninput="convert()" value="1"></label>
+
+  <br><br>
+
+  <label>From: <select id="from" onchange="convert()"></select></label>
+  &nbsp;
+  <label>To: <select id="to" onchange="convert()"></select></label>
+
+  <br><br>
+
+  <b>Result: <span id="result">—</span></b>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+% Created 2026-05-14 Thu 14:50
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{mathptmx}  % Times font
+\usepackage{helvet}   % Helvetica font #+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault} % Sans-serif as default
+\usepackage{titlesec}
+\usepackage{lmodern}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{cancel}
+\author{Serob Tigranyan}
+\date{\today}
+\title{Matematical Analysis}
+\hypersetup{
+ pdfauthor={Serob Tigranyan},
+ pdftitle={Matematical Analysis},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Find the particular solution satisfying the initial condition for the given differential equation}
+\label{sec:orgc1e0b05}
+Given the differential equation with initial condition \(y(1) = \frac{\pi}{2}\):
+\[
+xy' - y = x \tan{\frac{y}{x}}
+\]
+\subsection{Rewrite and Identify Type}
+\label{sec:org892aee9}
+Dividing both sides by \(x\) to isolate \(y'\):
+\[
+y' = \frac{y}{x} + \tan{\frac{y}{x}}
+\]
+The right-hand side depends only on \(\frac{y}{x}\), so this is a homogeneous equation.
+\subsection{Substitution}
+\label{sec:org9dd7862}
+We introduce the substitution \(z = \frac{y}{x}\), i.e. \(y = zx\), so that:
+\[
+y'=z'x+z
+\]
+Substituting into the equation:
+\[
+z'x+z=z+\tan{z}
+\]
+\[
+\frac{dz}{dx}x=\tan{z}
+\]
+\subsection{Separate Variables and Integrate}
+\label{sec:org1d7dabc}
+Separating variables:
+\[
+\frac{dz}{\tan{z}} = \frac{dx}{x}
+\]
+Integrating both sides:
+\[
+\int{\frac{dz}{\tan{z}}} = \int{\frac{dx}{x}}
+\]
+The left integral simplifies by rewriting \(\frac{1}{\tan z} = \frac{\cos z}{\sin z}\):
+\[
+\int{\frac{dz}{\tan{z}}} = \int{\frac{\cos{z}}{\sin{z}} dz} = \int{\frac{d \sin{z}}{\sin{z}}} = \ln{\left| \sin{z} \right|} + C
+\]
+And the right integral:
+\[
+\int{\frac{dx}{x}} = \ln{\left| x \right|} + C
+\]
+Equating both results and exponentiating:
+\[
+\ln{\left| \sin{z} \right|} = \ln{\left| x \right|}+C
+\]
+\[
+\sin{z} = x \cdot C
+\]
+\subsection{Apply Initial Condition}
+\label{sec:orgc21b777}
+Substituting back \(z = \frac{y}{x}\):
+\[
+\sin{\frac{y}{x}} = x \cdot C
+\]
+Applying the initial condition \(y(1) = \frac{\pi}{2}\):
+\[
+\sin{\frac{\pi}{2}} = C \Rightarrow C = 1
+\]
+Therefore the particular solution is:
+\[
+\sin{\frac{y}{x}} = x \Rightarrow \frac{y}{x} = \arcsin{x} \Rightarrow \boxed{y = x \arcsin{x}}
+\]
+
+\newpage
+\section{Find the general solution for the given differential equation}
+\label{sec:org0e88e47}
+Given the differential equation:
+\[
+y' \left( x + y^2 \right) = y
+\]
+\subsection{Rewrite as a Linear ODE}
+\label{sec:org7560d2a}
+Rewriting the equation with \(\frac{dy}{dx}\) on the left:
+\[
+\frac{dy}{dx} = \frac{y}{x+y^2}
+\]
+Taking the reciprocal to treat \(x\) as a function of \(y\) instead:
+\[
+\frac{dx}{dy} = \frac{x+y^2}{y}
+\]
+\[
+\frac{dx}{dy} = \frac{x}{y} + y
+\]
+Rearranging into standard linear form:
+\[
+\frac{dx}{dy} - \frac{x}{y} = y
+\]
+\subsection{Solve the Homogeneous Equation}
+\label{sec:org8a626f3}
+We first solve the associated homogeneous equation \(\frac{dx}{dy} - \frac{x}{y} = 0\):
+\[
+\frac{dx}{x} = \frac{dy}{y}
+\]
+\[
+\ln{\left| x \right|} = \ln{\left| y \right|} + C
+\]
+\[
+x = y \cdot C
+\]
+\subsection{Variation of Parameters}
+\label{sec:orge814202}
+We allow \(C\) to be a function of \(y\), setting \(x = y \cdot C(y)\) and differentiating:
+\[
+x' = C(y) + y \cdot C(y)'
+\]
+Substituting into the original equation:
+\[
+C(y) + y \cdot C(y)' - \frac{\cancel{y} \cdot C(y)}{\cancel{y}} = y
+\]
+\[
+\cancel{C(y)} + y \cdot C(y)' - \cancel{C(y)} = y
+\]
+\[
+y \cdot C(y)' = y
+\]
+\[
+C(y)' = 1
+\]
+Integrating to find \(C(y)\):
+\[
+C(y) = \int{dy} = y + C
+\]
+\subsection{General Solution}
+\label{sec:orga1350b7}
+Substituting \(C(y) = y + C\) back into \(x = y \cdot C(y)\):
+\[
+\boxed{x = y^2 + y \cdot C}
+\]
+\end{document}

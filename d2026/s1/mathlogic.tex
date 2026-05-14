@@ -1,6 +1,7 @@
-% Created 2025-12-18 Thu 19:05
+% Created 2026-05-11 Mon 19:49
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -29,7 +30,7 @@
  pdftitle={Mathematical Logic},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 30.2 (Org mode 9.7.39)}, 
+ pdfcreator={},
  pdflang={English}}
 \begin{document}
 
@@ -38,16 +39,16 @@
 
 \newpage
 \section{Proving Tautology using Identical Transformations}
-\label{sec:orga8b28cc}
+\label{sec:org75aa0fe}
 Using identical transformations prove that the following formula is a tautology:
 \[
 P \to (Q \to ((P \lor Q) \to (P \land Q)))
 \]
 \subsection{Understanding Tautology}
-\label{sec:org4f24f18}
+\label{sec:org7bbe7ff}
 A formula is a tautology if it evaluates to true for all possible truth value assignments. We'll use logical equivalences to transform the formula.
 \subsection{Applying Transformations}
-\label{sec:org93d7b9f}
+\label{sec:org6ea30ab}
 We begin with the implication equivalence: \(A \to B \equiv \neg A \lor B\)
 
 Starting with the formula:
@@ -108,13 +109,13 @@ Therefore, the formula is a \textbf{\textbf{tautology}}.
 
 \newpage
 \section{Finding the ANF (Zhegalkin Polynomial)}
-\label{sec:orge98c39c}
+\label{sec:orga75f0d6}
 Find the ANF (Zhegalkin polynomial) of the following Boolean function and determine whether it can be expressed as a linear Zhegalkin polynomial:
 \[
 f(x,y,z) = xyz \lor xy'z \lor x'yz' \lor x'y'z'
 \]
 \subsection{Constructing the Truth Table}
-\label{sec:orgca50b09}
+\label{sec:org9f71294}
 First, we construct the truth table for the given function:
 
 \begin{center}
@@ -134,7 +135,7 @@ $x$ & $y$ & $z$ & $f(x,y,z)$ \\
 \end{tabular}
 \end{center}
 \subsection{Computing the ANF using Pascal's Triangle Method}
-\label{sec:org0e9821b}
+\label{sec:org17b7720}
 To find the ANF, we use the XOR-based method. We create an auxiliary table where each row is computed by XORing adjacent values:
 
 \begin{center}
@@ -155,7 +156,7 @@ Row & 000 & 001 & 010 & 011 & 100 & 101 & 110 & 111 \\
 
 \newpage
 \subsection{Reading the ANF Coefficients}
-\label{sec:org07f2884}
+\label{sec:org5e1ac54}
 The ANF coefficients correspond to the first column of each row. Reading from top to bottom, we get the coefficients for terms: \(1, x, y, xy, z, xz, yz, xyz\)
 
 From our table: coefficients are \(1, 1, 0, 0, 1, 0, 0, 0\)
@@ -165,7 +166,7 @@ Therefore, the ANF is:
 \boxed{f(x,y,z) = 1 \oplus x \oplus z}
 \]
 \subsection{Determining Linearity}
-\label{sec:orgd9247eb}
+\label{sec:org134e61f}
 A Zhegalkin polynomial is linear if it contains only terms of degree 0 (constant) and degree 1 (single variables), with no products of variables.
 
 Our ANF contains only the constant term \(1\) and the linear terms \(x\) and \(z\). Therefore:
@@ -175,20 +176,20 @@ Our ANF contains only the constant term \(1\) and the linear terms \(x\) and \(z
 
 \newpage
 \section{Constructing Truth Table of Boolean Function}
-\label{sec:orga2a9fd6}
+\label{sec:orgdf80f60}
 Construct the truth table of the following boolean function:
 \[
 f(x, y, z) = x' \to (x \leftrightarrow (y \oplus (xz)))
 \]
 \subsection{Understanding the Operators}
-\label{sec:org4c0591a}
+\label{sec:org3fabc91}
 \begin{itemize}
 \item \(\oplus\) is XOR (exclusive or): \(A \oplus B\) is true when exactly one of \(A\) or \(B\) is true
 \item \(\leftrightarrow\) is biconditional (XNOR): \(A \leftrightarrow B\) is true when \(A\) and \(B\) have the same truth value
 \item \(\to\) is implication: \(A \to B\) is false only when \(A\) is true and \(B\) is false
 \end{itemize}
 \subsection{Building the Truth Table}
-\label{sec:orge94658f}
+\label{sec:org24ff897}
 We evaluate the function step by step for each combination:
 
 \begin{center}
@@ -208,7 +209,7 @@ $x$ & $y$ & $z$ & $x'$ & $xz$ & $y \oplus (xz)$ & $x \leftrightarrow (y \oplus (
 \end{tabular}
 \end{center}
 \subsection{Analysis}
-\label{sec:orgc147255}
+\label{sec:org66b0a32}
 The function evaluates to 0 when \(x=0\) and \(y=1\) (rows 3 and 4), and evaluates to 1 otherwise. Therefore:
 \[
 \boxed{f(x, y, z) \not\equiv 1 \text{ (not a tautology)}}
@@ -221,13 +222,13 @@ f(x,y,z) = \bar{x}\bar{y}\bar{z} \lor \bar{x}\bar{y}z \lor x\bar{y}\bar{z} \lor 
 
 \newpage
 \section{Using K-maps to Simplify Boolean Expression}
-\label{sec:orgc6c74e6}
+\label{sec:org29ac3c0}
 Using K-maps simplify the following boolean expression:
 \[
 f(w, x, y, z)= \bar{w}xy\bar{z}+w\bar{x}yz +wx\bar{y}\bar{z}+\bar{w}xy\bar{z}+\bar{w}\bar{x}y\bar{z}+\bar{w}x\bar{y}z+w\bar{x}\bar{y}\bar{z}+\bar{w}xyz+w\bar{x}yz+wx\bar{y}z+\bar{w}xy\bar{z}+\bar{w}x\bar{y}\bar{z}
 \]
 \subsection{Identifying the Minterms}
-\label{sec:org69322df}
+\label{sec:org2c53fee}
 First, we identify which minterms are present (removing duplicates):
 \begin{itemize}
 \item \(\bar{w}xy\bar{z}\) → 0110 → minterm 6
@@ -243,7 +244,7 @@ First, we identify which minterms are present (removing duplicates):
 
 Minterms: 2, 4, 5, 6, 7, 8, 11, 12, 13
 \subsection{Constructing the K-map}
-\label{sec:orgec6fd93}
+\label{sec:org934a582}
 We fill in a 4-variable Karnaugh map:
 
 \begin{center}
@@ -263,7 +264,7 @@ Where rows represent \(wx\): 00, 01, 11, 10 and columns represent \(yz\): 00, 01
 
 \newpage
 \subsection{Grouping the Ones}
-\label{sec:orga1c193a}
+\label{sec:org51e0bdb}
 We identify the prime implicants by grouping adjacent 1s in the K-map. The goal is to form the largest possible groups (powers of 2) to minimize the final expression.
 
 \textbf{Group 1} (size 4): Covers minterms 4, 5, 6, 7
@@ -300,7 +301,7 @@ We identify the prime implicants by grouping adjacent 1s in the K-map. The goal 
 \item Prime implicant: \(w\bar{x}yz\)
 \end{itemize}
 \subsection{Simplified Expression}
-\label{sec:org7617c25}
+\label{sec:orgadfec80}
 Combining all prime implicants that are necessary to cover all minterms:
 \[
 \boxed{f(w,x,y,z) = \bar{w}x + wx\bar{y} + \bar{w}y\bar{z} + w\bar{y}\bar{z} + w\bar{x}yz}

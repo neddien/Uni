@@ -6,6 +6,8 @@
 * Introduction
 A *Priority Queue* is an abstract data type that operates similarly to a regular queue or stack, but where every element has an associated "priority." In a priority queue, an element with high priority is served before an element with low priority.
 
+[[file:lol.jpg]]
+
 ** Implementation: The Binary Heap
 In computer science, a priority queue is most efficiently implemented using a *Binary Heap*.
 
@@ -122,3 +124,11 @@ In a 2D engine's batch renderer, draw calls must be ordered correctly to handle 
 - *The Problem:* Different systems (UI, Game World, Particle System) submit draw commands in any order, but they must be rendered from back to front.
 - *Priority Queue Usage:* A *Min-Heap* stores batches keyed by their =z_index=.
 - *Benefit:* The renderer pops batches in the correct order, ensuring that a "UI" batch with a high Z-Index is always drawn on top of a "Background" batch with a low Z-Index, regardless of submission order.
+
+\newpage
+* Sources
+- [[https://www.geeksforgeeks.org/dsa/priority-queue-set-1-introduction/]]
+- [[https://en.cppreference.com/cpp/container/priority_queue]]
+- [[https://en.wikipedia.org/wiki/Priority_queue]]
+
+

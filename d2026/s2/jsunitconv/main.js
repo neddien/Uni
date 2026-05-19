@@ -44,10 +44,24 @@ function updateUnits() {
 
   if (toSel.options.length > 1) toSel.selectedIndex = 1;
 
+  syncOptions();
   convert();
 }
 
+function syncOptions() {
+  const fromSel = document.getElementById('from');
+  const toSel = document.getElementById('to');
+
+  Array.from(toSel.options).forEach(opt => {
+    opt.hidden = opt.value === fromSel.value;
+  });
+  Array.from(fromSel.options).forEach(opt => {
+    opt.hidden = opt.value === toSel.value;
+  });
+}
+
 function convert() {
+  syncOptions();
   const val = parseFloat(document.getElementById('value').value);
   const cat = document.getElementById('category').value;
   const from = document.getElementById('from').value;

@@ -34,15 +34,48 @@ C++ provides built-in support for priority queues through the Standard Template 
 ** The =std::priority_queue= Container
 Found in the =<queue>= header, =std::priority_queue= is a container adaptor. It provides $O(\log n)$ insertion and extraction, and $O(1)$ access to the top element.
 
+Basic usage of =std::priority_queue=:
 #+BEGIN_SRC cpp
+#include <iostream>
 #include <queue>
-#include <vector>
 
-// Default: Max-Heap (Highest value at top)
-std::priority_queue<int> max_heap;
+int main() {
+    // Default: Max heap
+    std::priority_queue<int> max_queue;
+    // Min heap
+    std::priority_queue<
+        int, 
+        std::vector<int>, 
+        std::greater<int>> min_queue;
 
-// Min-Heap (Lowest value at top)
-std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;
+    for (const int e : { 45, 31, 20, 14, 7, 12, 18, 11, 7, }) {
+        max_queue.push(e);
+        min_queue.push(e);
+    }
+
+    std::cout << "max: ";
+    while (!max_queue.empty()) {
+        std::cout << max_queue.top() << " ";
+        max_queue.pop();
+    }
+    std::cout << std::endl;
+    
+    std::cout << "min: ";
+    while (!min_queue.empty()) {
+        std::cout << min_queue.top() << " ";
+        min_queue.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+#+END_SRC
+
+Which yields the following output:
+#+BEGIN_SRC bash
+endrohu@noedarlin:/tmp $ c++ -std=c++20 prio_queue.cpp -o queue && ./queue 
+max: 45 31 20 18 14 12 11 7 7 
+min: 7 7 11 12 14 18 20 31 45
 #+END_SRC
 
 ** Key Properties

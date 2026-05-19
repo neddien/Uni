@@ -1,4 +1,4 @@
-% Created 2026-05-18 Mon 01:53
+% Created 2026-05-19 Tue 01:30
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 
@@ -30,24 +30,24 @@
 
 \newpage
 \section{Introduction}
-\label{sec:orgb244ce6}
+\label{sec:orgdfeb46e}
 A \textbf{Priority Queue} is an abstract data type that operates similarly to a regular queue or stack, but where every element has an associated ``priority.'' In a priority queue, an element with high priority is served before an element with low priority.
 
 \begin{center}
 \includegraphics[width=.9\linewidth]{lol.jpg}
 \end{center}
 \subsection{Implementation: The Binary Heap}
-\label{sec:org1495f6e}
+\label{sec:orgc775ace}
 In computer science, a priority queue is most efficiently implemented using a \textbf{Binary Heap}.
 \subsubsection{What is a Binary Heap?}
-\label{sec:orgb61b389}
+\label{sec:orgb907193}
 A Binary Heap is a complete binary tree that satisfies the \textbf{heap property}:
 \begin{itemize}
 \item \textbf{Max-Heap:} The value of each node is less than or equal to the value of its parent. The largest element is at the root.
 \item \textbf{Min-Heap:} The value of each node is greater than or equal to the value of its parent. The smallest element is at the root.
 \end{itemize}
 \subsubsection{Array-Based Implementation}
-\label{sec:org0c50429}
+\label{sec:org0cd3b0f}
 Because a heap is a \textbf{complete} binary tree (all levels are filled except possibly the last, which is filled from left to right), it can be stored compactly in a contiguous array without pointers.
 
 For an element at index \texttt{i}:
@@ -61,24 +61,57 @@ This layout allows for \(O(1)\) access to the top element and \(O(\log n)\) time
 
 \newpage
 \section{C++ Support for Priority Queues}
-\label{sec:org614f669}
+\label{sec:orgd65e60d}
 C++ provides built-in support for priority queues through the Standard Template Library (STL).
 \subsection{The \texttt{std::priority\_queue} Container}
-\label{sec:org6ad6e68}
+\label{sec:orgd699af8}
 Found in the \texttt{<queue>} header, \texttt{std::priority\_queue} is a container adaptor. It provides \(O(\log n)\) insertion and extraction, and \(O(1)\) access to the top element.
 
+Basic usage of \texttt{std::priority\_queue}:
 \begin{verbatim}
+#include <iostream>
 #include <queue>
-#include <vector>
 
-// Default: Max-Heap (Highest value at top)
-std::priority_queue<int> max_heap;
+int main() {
+    // Default: Max heap
+    std::priority_queue<int> max_queue;
+    // Min heap
+    std::priority_queue<
+        int, 
+        std::vector<int>, 
+        std::greater<int>> min_queue;
 
-// Min-Heap (Lowest value at top)
-std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;
+    for (const int e : { 45, 31, 20, 14, 7, 12, 18, 11, 7, }) {
+        max_queue.push(e);
+        min_queue.push(e);
+    }
+
+    std::cout << "max: ";
+    while (!max_queue.empty()) {
+        std::cout << max_queue.top() << " ";
+        max_queue.pop();
+    }
+    std::cout << std::endl;
+    
+    std::cout << "min: ";
+    while (!min_queue.empty()) {
+        std::cout << min_queue.top() << " ";
+        min_queue.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+\end{verbatim}
+
+Which yields the following output:
+\begin{verbatim}
+endrohu@noedarlin:/tmp $ c++ -std=c++20 prio_queue.cpp -o queue && ./queue 
+max: 45 31 20 18 14 12 11 7 7 
+min: 7 7 11 12 14 18 20 31 45
 \end{verbatim}
 \subsection{Key Properties}
-\label{sec:orgc16ed8d}
+\label{sec:orgd68e689}
 \begin{itemize}
 \item \textbf{Underlying Container:} Defaults to \texttt{std::vector}, but can use \texttt{std::deque}.
 \item \textbf{Ordering:} By default, it uses \texttt{std::less<T>}, making it a \textbf{Max-Heap}.
@@ -87,10 +120,10 @@ std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap;
 \newpage
 \end{itemize}
 \section{Technical Challenges: The ``Decrease Key'' Problem}
-\label{sec:org8b7c8f7}
+\label{sec:org380209f}
 Standard \texttt{std::priority\_queue} does \textbf{not} support updating the priority of an element already in the queue.
 \subsection{Solutions:}
-\label{sec:org586f32f}
+\label{sec:org0703b7a}
 \begin{enumerate}
 \item \textbf{Lazy Removal:} Instead of updating, push a new entry with the better cost. When popping, check if the node has already been processed with a lower cost; if so, skip it.
 \item \textbf{std::make\textsubscript{heap}:} Use a raw \texttt{std::vector} with \texttt{std::push\_heap} and \texttt{std::pop\_heap}, which allows manual searching or using a custom indexed heap.
@@ -98,7 +131,7 @@ Standard \texttt{std::priority\_queue} does \textbf{not} support updating the pr
 
 \newpage
 \section{Example Code: Custom Priority Handling}
-\label{sec:org3e89fbd}
+\label{sec:org09557e4}
 \begin{verbatim}
 #include <iostream>
 #include <queue>
@@ -135,11 +168,11 @@ int main() {
 }
 \end{verbatim}
 \section{Applications}
-\label{sec:orge4667aa}
+\label{sec:org7c0f805}
 As a game engine developer, I personally have used priorities queues in the past so I will demonstrate few of its applications in engine development.
 Priority queues are vital in game development for managing asynchronous tasks and ensuring deterministic ordering.
 \subsection{1. Abstracted Render Command Queues}
-\label{sec:org576fdbd}
+\label{sec:org9d42f80}
 Modern APIs like Vulkan and DirectX 12 have native \textbf{CommandQueues}. OpenGL, however, is notoriously single-threaded: its context can only be active on one thread at a time.
 \begin{itemize}
 \item \textbf{The Problem:} How do we allow other threads (AI, Physics, Editor) to ``call'' OpenGL functions?
@@ -154,7 +187,7 @@ Modern APIs like Vulkan and DirectX 12 have native \textbf{CommandQueues}. OpenG
 \newpage
 \end{itemize}
 \subsection{2. Multi-threaded Engine Events}
-\label{sec:orgdd1ac19}
+\label{sec:orgfb77537}
 In a complex engine or editor, subsystems (Virtual File System, Input, Windowing) need to communicate across threads.
 \begin{itemize}
 \item \textbf{Mechanism:} A global \texttt{EventManager} where systems register/subscribe to events (e.g., \texttt{FileChangedEvent}, \texttt{WindowResizeEvent}).
@@ -164,7 +197,7 @@ In a complex engine or editor, subsystems (Virtual File System, Input, Windowing
 \newpage
 \end{itemize}
 \subsection{3. 2D Batch Rendering (Z-Index Sorting)}
-\label{sec:org19b3340}
+\label{sec:orgd227b7b}
 In a 2D engine's batch renderer, draw calls must be ordered correctly to handle layering (parallax, UI, sprites).
 \begin{itemize}
 \item \textbf{Mechanism:} Each batch of sprites or geometry is assigned a \texttt{z\_index}.
@@ -175,7 +208,7 @@ In a 2D engine's batch renderer, draw calls must be ordered correctly to handle 
 
 \newpage
 \section{Sources}
-\label{sec:orged5a4e8}
+\label{sec:orgdcf2ab2}
 \begin{itemize}
 \item \url{https://www.geeksforgeeks.org/dsa/priority-queue-set-1-introduction/}
 \item \url{https://en.cppreference.com/cpp/container/priority\_queue}
